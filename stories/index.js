@@ -6,7 +6,7 @@ import InterviewerListItem from "components/InterviewerListItem";
 import InterviewerList from "components/InterviewerList";
 import Appointment from "components/Appointment/index.js";
 import Header from "components/Appointment/Header";
-import Empty from "components/Appointment/Empty"
+import Empty from "components/Appointment/Empty";
 import Show from "components/Appointment/Show";
 import Confirm from "components/Appointment/Confirm";
 import Status from "components/Appointment/Status";
@@ -162,8 +162,20 @@ storiesOf("Appointment", module)
   .add("Confirm", () => <Confirm message="Delete the appointment?" onConfirm={action("onConfirm")} onCancel={action("onCancel")} />)
   .add("Status", () => <Status message="Deleting..." />)
   .add("Error", () => <Error message="Could not delete appointment." onClose={action("onClose")} />)
-  .add("Edit", () => <Form student="Colleen Garvey" interviewer={3} interviewers={interviewers} onSave={action("onSave")} onCancel={action("onCancel")} />)
-  .add("Create", () => <Form interviewers={interviewers} onSave={action("onSave")} onCancel={action("onCancel")} />)
+  .add("Edit", () =>
+    <Form
+      student="Colleen Garvey"
+      interviewer={3}
+      interviewers={interviewers}
+      onSave={action("onSave")}
+      onCancel={action("onCancel")}
+    />)
+  .add("Create", () =>
+    <Form
+      interviewers={interviewers}
+      onSave={action("onSave")}
+      onCancel={action("onCancel")}
+    />)
   .add("Appointment Empty", () => (
     <Fragment>
       <Appointment id={1} time="4pm" />
@@ -179,4 +191,4 @@ storiesOf("Appointment", module)
       />
       <Appointment time="5pm" />
     </Fragment>
-  ))
+  ));
