@@ -6,4 +6,15 @@ export function getAppointmentsForDay(state, day) {
     appointments = idOfDay.map(elm => state.appointments[elm]);
   }
   return appointments;
-}
+};
+
+export function getInterview(state, interview) {
+  if (!interview) {
+    return null;
+  }
+  const interviewData = state.interviewers[interview.interviewer]
+  return {
+    ...interview, 
+    interviewer: interviewData
+  };
+};
