@@ -9,9 +9,21 @@ export default function useApplicationData() {
     appointments: {},
     interviewers: {}
   });
-
+  ////////////// DATE SELECTOR ON SIDEBAR /////////////////
   const setDay = day => setState({ ...state, day });
 
+  ///////////// SPOTS UPDATE ON CREATE AND DELETE /////////////////
+  function spotChange(number) {
+    const days = state.days.map(day => {
+      if (day.name === state.day) {
+        day.spots += number
+      }
+      return day;
+    })
+    return days;
+  }
+
+  //////////////// BOOK/CREATE INTERVIEW //////////////////////
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
@@ -21,15 +33,18 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     };
+    const days = spotChange(-1)
     return axios.put(`/api/appointments/${id}`, { interview })
       .then(() => {
         setState({
           ...state,
-          appointments
+          appointments,
+          days
         });
       });
   }
 
+  ////////////////// CANCEL/DELETE INTERVIEW //////////////////////
   function cancelInterview(id) {
     const appointment = {
       ...state.appointments[id],
@@ -39,16 +54,20 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     };
+    const days = spotChange(1)
+
     return axios
       .delete(`/api/appointments/${id}`, appointment)
       .then(() => {
         setState({
           ...state,
-          appointments
+          appointments,
+          days
         });
       });
   }
 
+  /////////////////// USE EFFECT ////////////////////
   useEffect(() => {
     Promise.all([
       axios.get(`/api/days`),
@@ -60,9 +79,5 @@ export default function useApplicationData() {
       });
   }, []);
 
-
-
-
   return { state, setDay, bookInterview, cancelInterview };
-
 }
