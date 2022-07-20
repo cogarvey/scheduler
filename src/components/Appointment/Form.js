@@ -10,11 +10,15 @@ export default function Form(props) {
     setStudent("");
     setInterviewer(null);
   }
+
+  ///////// CANCEL FUNCTION ////////////////
   const cancel = () => {
     reset()
     setError("")
     props.onCancel()
   };
+
+  ////////// VALIDATE FUNCTION //////////////
   const validate = () => {
     if (!student) {
       setError("Student name cannot be blank!")
@@ -40,7 +44,6 @@ export default function Form(props) {
             value={student}
             onChange={(event) => setStudent(event.target.value)}
             data-testid="student-name-input"
-          ///////////////
           />
           <section className="appointment__validation">{error}</section>
         </form>
@@ -48,7 +51,6 @@ export default function Form(props) {
           interviewers={props.interviewers}
           value={interviewer}
           onChange={setInterviewer}
-          /////////////////////
         />
       </section>
       <section className="appointment__card-right">
