@@ -1,5 +1,3 @@
-
-
 const fixtures = {
   days: [
     {
@@ -55,7 +53,8 @@ const fixtures = {
   }
 };
 
-////////////// AXIOS ////////////////////
+// --------------- mock axios GET requests
+
 export default {
   defaults: { baseURL: "" },
   get: jest.fn(url => {
@@ -68,7 +67,6 @@ export default {
     }
 
     if (url === "/api/appointments") {
-      /* Resolve appointments data */
       return Promise.resolve({
         status: 200,
         statusText: "OK",
@@ -77,7 +75,6 @@ export default {
     }
 
     if (url === "/api/interviewers") {
-      /* Resolve interviewers data */
       return Promise.resolve({
         status: 200,
         statusText: "OK",
@@ -85,14 +82,22 @@ export default {
       });
     }
   }),
-  put: jest.fn(() => {
-    const days = [...fixtures.days];
-    days[0].spots--;
 
+  // --------------- mock axios PUT requests
+
+  put: jest.fn(() => {
     return Promise.resolve({
       status: 204,
-      statusText: "No Content",
-      data: days
+      statusText: "No content"
     });
-  })
+  }),
+
+   // --------------- mock axios DELETE request
+   
+   delete: jest.fn(() => {
+     return Promise.resolve({
+       status: 200,
+       statusText: "Appointment successfully deleted"
+     });
+   })
 };
